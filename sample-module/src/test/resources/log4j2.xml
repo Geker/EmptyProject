@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="error" monitorInterval="30">
+    <properties>
+        <property name="LOG_PATH">logs</property>
+        <property name="LogPattern">%date{yyyy-MM-dd HH:mm:ss.SSS} %level  [%threadName][%threadId][%c{1}][%X] - %msg%n%throwable</property>
+    </properties>
+    <appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LogPattern}" />
+        </Console>
+        <RollingRandomAccessFile name="FileAppender"
+            fileName="${LOG_PATH}/fileLog.log"
+            filePattern="${LOG_PATH}/$${date:yyyy-MM-dd}/${LOG_NAME}.%d{yyyy-MM-dd}.%i.log">
+            <PatternLayout pattern="${LogPattern}" />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="100 MB" />
+                <TimeBasedTriggeringPolicy interval="1"
+                    modulate="true" />
+            </Policies>
+            <DefaultRolloverStrategy min="1" max="20"
+                fileIndex="max" />
+        </RollingRandomAccessFile>
+    </appenders>
+    <loggers>
+
+        <asyncRoot level="debug" includeLocation="false">
+            <appender-ref ref="FileAppender" />
+            <appender-ref ref="ConsoleAppender" />
+        </asyncRoot>
+    </loggers>
+</configuration>
