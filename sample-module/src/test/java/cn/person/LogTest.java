@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+package  cn.person;
 
 import org.junit.Test;
 import org.slf4j.Logger;
